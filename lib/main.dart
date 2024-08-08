@@ -1,4 +1,4 @@
-import 'package:animation_demo/animated-builder-ufo/animated_builder_demo.dart';
+import 'package:animation_demo/lottie-animation/lottie_animation_demo.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -11,7 +11,7 @@ class App extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const MaterialApp(
-      home: AnimatedBuilderDemo(),
+      home: LottieAnimationDemo(),
       debugShowCheckedModeBanner: false,
     );
   }
