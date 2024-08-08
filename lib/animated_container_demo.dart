@@ -38,9 +38,12 @@ class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
           decoration: BoxDecoration(
             color: _color,
             borderRadius: _borderRadius,
+            gradient: LinearGradient(
+              colors: [_color, Colors.transparent],
+            ),
           ),
           duration: const Duration(seconds: 1),
-          curve: Curves.fastOutSlowIn,
+          curve: Curves.linearToEaseOut,
         ),
       ),
       floatingActionButton: FloatingActionButton(
@@ -48,5 +51,16 @@ class _AnimatedContainerDemoState extends State<AnimatedContainerDemo> {
         child: const Icon(Icons.play_arrow),
       ),
     );
+  }
+}
+
+class SineCurve extends Curve {
+  const SineCurve({this.count = 1});
+
+  final double count;
+
+  @override
+  double transformInternal(double t) {
+    return sin(count * 2 * pi * t) * 0.5 + 0.5;
   }
 }
