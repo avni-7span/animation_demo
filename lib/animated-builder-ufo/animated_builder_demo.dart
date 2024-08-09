@@ -52,7 +52,7 @@ class _AnimatedBuilderDemoState extends State<AnimatedBuilderDemo>
                   decoration: BoxDecoration(
                     gradient: RadialGradient(
                         radius: 1.5,
-                        colors: [Colors.yellow, Colors.transparent],
+                        colors: const [Colors.yellow, Colors.transparent],
                         stops: [0, _animationController.value]),
                   ),
                 ),

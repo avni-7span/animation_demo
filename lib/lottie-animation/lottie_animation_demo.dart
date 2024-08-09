@@ -8,8 +8,23 @@ class LottieAnimationDemo extends StatefulWidget {
   State<LottieAnimationDemo> createState() => _LottieAnimationDemoState();
 }
 
-class _LottieAnimationDemoState extends State<LottieAnimationDemo> {
+class _LottieAnimationDemoState extends State<LottieAnimationDemo>
+    with SingleTickerProviderStateMixin {
   bool? isLoading;
+  late AnimationController _animationController;
+
+  @override
+  void initState() {
+    super.initState();
+    _animationController =
+        AnimationController(vsync: this, duration: const Duration(seconds: 4));
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,16 +34,20 @@ class _LottieAnimationDemoState extends State<LottieAnimationDemo> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             isLoading == null
-                ? SizedBox()
+                ? const SizedBox()
                 : isLoading == true
                     ? LottieBuilder.asset(
                         height: 200,
                         width: 200,
-                        'animations/loading.json',
+                        'animations/buffering.json',
                         repeat: true,
                         reverse: false,
                       )
                     : LottieBuilder.asset(
+                        controller: _animationController,
+                        onLoaded: (composition) => _animationController
+                          ..duration = composition.duration
+                          ..forward(),
                         height: 100,
                         width: 100,
                         'animations/done.json',
@@ -47,7 +66,7 @@ class _LottieAnimationDemoState extends State<LottieAnimationDemo> {
                 setState(() {
                   isLoading = true;
                 });
-                await Future.delayed(Duration(seconds: 2));
+                await Future.delayed(const Duration(seconds: 4));
                 setState(() {
                   isLoading = false;
                 });
